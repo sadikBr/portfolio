@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body,
+#root,
+.app {
+  @apply w-screen h-screen bg-blue-950 text-white;
+}
+
+.section {
+  @apply flex items-center justify-center w-screen h-screen;
+}
+
+.link {
+  @apply text-blue-300 font-bold text-lg opacity-70 uppercase;
+}
+
+.link:hover {
+  @apply opacity-100 text-orange-300 transition duration-200;
+}

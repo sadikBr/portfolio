@@ -1,9 +1,11 @@
-import Header from './components/Header.tsx';
+import Header from './components/header/index.tsx';
+import HeroSection from './components/hero-section.tsx';
 
 function Portfolio() {
   return (
-    <div>
+    <div className="app">
       <Header />
+      <HeroSection />
     </div>
   )
 }
