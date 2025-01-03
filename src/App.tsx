@@ -1,5 +1,5 @@
 import Header from './components/header/index.tsx';
-import HeroSection from './components/hero-section.tsx';
+import HeroSection from './components/hero-section/index.tsx';
 
 function Portfolio() {
   return (
