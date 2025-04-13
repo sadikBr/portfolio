@@ -10,6 +10,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+import ProjectImage from '@/assets/project.jpg';
+
 export function Projects() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -26,7 +28,7 @@ export function Projects() {
       title: "E-commerce Platform",
       description:
         "A full-featured online store with product listings, cart functionality, and secure checkout process.",
-      image: "/placeholder.svg?height=600&width=800",
+      image: ProjectImage,
       category: "web",
       tags: ["Next.js", "Tailwind CSS", "Stripe", "Prisma"],
       demoUrl: "https://example.com/demo",
@@ -38,7 +40,7 @@ export function Projects() {
       title: "Task Management App",
       description:
         "A productivity application for managing tasks, projects, and team collaboration with real-time updates.",
-      image: "/placeholder.svg?height=600&width=800",
+      image: ProjectImage,
       category: "web",
       tags: ["React", "Firebase", "Tailwind CSS", "TypeScript"],
       demoUrl: "https://example.com/demo",
@@ -50,7 +52,7 @@ export function Projects() {
       title: "Fitness Tracker Mobile App",
       description:
         "A mobile application for tracking workouts, nutrition, and health metrics with personalized recommendations.",
-      image: "/placeholder.svg?height=600&width=800",
+      image: ProjectImage,
       category: "mobile",
       tags: ["React Native", "Redux", "Firebase", "Health API"],
       demoUrl: "https://example.com/demo",
@@ -61,7 +63,7 @@ export function Projects() {
       id: 4,
       title: "Financial Dashboard",
       description: "An interactive dashboard for visualizing financial data with customizable charts and reports.",
-      image: "/placeholder.svg?height=600&width=800",
+      image: ProjectImage,
       category: "web",
       tags: ["React", "D3.js", "Node.js", "MongoDB"],
       demoUrl: "https://example.com/demo",
@@ -73,7 +75,7 @@ export function Projects() {
       title: "Travel Companion App",
       description:
         "A travel planning application with itinerary management, location discovery, and travel recommendations.",
-      image: "/placeholder.svg?height=600&width=800",
+      image: ProjectImage,
       category: "mobile",
       tags: ["Flutter", "Google Maps API", "Firebase"],
       demoUrl: "https://example.com/demo",
@@ -85,7 +87,7 @@ export function Projects() {
       title: "E-learning Platform UI Design",
       description:
         "A comprehensive UI/UX design for an online learning platform with a focus on accessibility and user engagement.",
-      image: "/placeholder.svg?height=600&width=800",
+      image: ProjectImage,
       category: "design",
       tags: ["Figma", "Adobe XD", "UI/UX", "Prototyping"],
       demoUrl: "https://example.com/demo",
@@ -127,7 +129,7 @@ export function Projects() {
                   .map((project, index) => (
                     <Card
                       key={project.id}
-                      className="overflow-hidden group border border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20"
+                      className="overflow-hidden group border border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 py-0"
                       onMouseEnter={() => setHoveredIndex(index)}
                       onMouseLeave={() => setHoveredIndex(null)}
                     >
@@ -178,10 +180,10 @@ export function Projects() {
                           ))}
                         </div>
                       </CardContent>
-                      <CardFooter className="px-6 pb-6 pt-0">
+                      <CardFooter className="mt-auto px-6 pb-6 pt-0">
                         <Button
                           variant="ghost"
-                          className="p-0 h-auto font-semibold text-primary hover:text-primary/80 hover:bg-transparent group"
+                          className="px-2 py-1 h-auto font-semibold text-primary hover:text-primary/80 hover:bg-transparent group"
                           asChild
                         >
                           <Link href={project.demoUrl} target="_blank" rel="noopener noreferrer">

@@ -46,7 +46,7 @@ export function Contact() {
       icon: <MapPin className="h-5 w-5" />,
       title: "Location",
       value: "Ifechtalene neighborhood, Demnate",
-      link: "https://maps.google.com/?q=San+Francisco,+CA",
+      link: "https://maps.app.goo.gl/dNgtkzRX5qYfj49X9",
     },
   ];
 

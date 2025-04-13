@@ -11,7 +11,7 @@ export function About() {
         <div className='md:w-1/2 flex justify-center'>
           <div className='relative'>
             <div className='w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-8 border-primary/10 shadow-xl'>
-              <Image src={ProfileImage} alt='Profile picture' width={420} height={420} className='object-cover' />
+              <Image src={ProfileImage} alt='Profile picture' width={320} height={320} className='object-cover' />
             </div>
             <div className='absolute inset-0 rounded-full bg-gradient-to-tr from-primary/20 to-transparent opacity-70'></div>
           </div>
@@ -24,7 +24,7 @@ export function About() {
           </div>
 
           <p className='text-muted-foreground'>
-            Hello! I am Brahim SADIK, a passionate web developer with over 5 years of experience in creating beautiful, functional websites and applications. <br />
+            Hello! I am Brahim SADIK, a passionate web developer with about 5 years of experience in creating beautiful, functional websites and applications. <br />
             I specialize in both front-end and back-end developement with expertise in React, Next.js, Node.js, Deno, and modern CSS frameworks.
           </p>
 
