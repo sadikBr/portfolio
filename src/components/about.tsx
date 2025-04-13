@@ -24,7 +24,7 @@ export function About() {
           </div>
 
           <p className='text-muted-foreground'>
-            Hello! I'm Brahim SADIK, a passionate web developer with over 5 years of experience in creating beautiful, functional websites and applications. <br />
+            Hello! I am Brahim SADIK, a passionate web developer with over 5 years of experience in creating beautiful, functional websites and applications. <br />
             I specialize in both front-end and back-end developement with expertise in React, Next.js, Node.js, Deno, and modern CSS frameworks.
           </p>
 
@@ -34,7 +34,7 @@ export function About() {
           </p>
 
           <p className='text-muted-foreground'>
-            When I'm not coding nor working, you can find me watching some youtube entertainment videos (coding, game develepment, anime ...), reading some book, or experimenting with new technologies. <br />
+            When I am not coding nor working, you can find me watching some youtube entertainment videos (coding, game develepment, anime ...), reading some book, or experimenting with new technologies. <br />
             I believe in continuous learning and stying updated with the latest trends in web development and also in all other aspects of life.
           </p>
 

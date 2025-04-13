@@ -70,7 +70,7 @@ export function Skills() {
         <div className="text-center mb-12 space-y-4">
           <h2 className="text-3xl font-bold tracking-tight">My Skills</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            I've acquired a diverse set of skills throughout my journey as a developer. Here's a comprehensive overview
+            I have acquired a diverse set of skills throughout my journey as a developer. Here is a comprehensive overview
             of my technical expertise.
           </p>
         </div>

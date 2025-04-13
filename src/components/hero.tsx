@@ -16,7 +16,7 @@ export function Hero() {
 
       <div className='space-y-2 mb-6'>
         <h1 className='text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl'>
-          Hello, I'm <span className='text-destructive'>Brahim SADIK</span>
+          Hello, I am <span className='text-destructive'>Brahim SADIK</span>
         </h1>
         <h2 className='text-2xl sm:text-3xl md:text-4xl font-medium h-12'>
           I am <span className='text-destructive'>{typedText}</span>

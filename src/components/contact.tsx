@@ -33,19 +33,19 @@ export function Contact() {
     {
       icon: <Mail className="h-5 w-5" />,
       title: "Email",
-      value: "hello@example.com",
-      link: "mailto:hello@example.com",
+      value: "brahimsadik98@gmail.com",
+      link: "mailto:brahimsadik98@gmail.com",
     },
     {
       icon: <Phone className="h-5 w-5" />,
       title: "Phone",
-      value: "+1 (555) 123-4567",
-      link: "tel:+15551234567",
+      value: "+212 668424637",
+      link: "tel:+212668424637",
     },
     {
       icon: <MapPin className="h-5 w-5" />,
       title: "Location",
-      value: "San Francisco, CA",
+      value: "Ifechtalene neighborhood, Demnate",
       link: "https://maps.google.com/?q=San+Francisco,+CA",
     },
   ];
@@ -65,7 +65,7 @@ export function Contact() {
           <div className="space-y-6">
             <h3 className="text-xl font-semibold">Contact Information</h3>
             <p className="text-muted-foreground">
-              Feel free to reach out to me through any of these channels. I'm always open to discussing new projects,
+              Feel free to reach out to me through any of these channels. I am always open to discussing new projects,
               creative ideas, or opportunities.
             </p>
 
@@ -93,7 +93,7 @@ export function Contact() {
           <Card>
             <CardHeader>
               <CardTitle>Send Me a Message</CardTitle>
-              <CardDescription>Fill out the form below and I'll get back to you as soon as possible.</CardDescription>
+              <CardDescription>Fill out the form below and I will get back to you as soon as possible.</CardDescription>
             </CardHeader>
             <CardContent>
               {isSubmitted ? (

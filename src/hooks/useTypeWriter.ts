@@ -5,10 +5,10 @@ async function sleep(millis: number) {
 }
 
 export default function useTypeWriter(typingSpeed: number) {
-  const words = ['a Developer', 'a Creator', 'Creative', 'a Team Member'];
+  const words = useMemo(() => ['a Developer', 'a Creator', 'Creative', 'a Team Member'], []);
 
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const currentWord = useMemo(() => words[currentWordIndex], [currentWordIndex]);
+  const currentWord = useMemo(() => words[currentWordIndex], [currentWordIndex, words]);
 
   const [wordPosition, setWordPosition] = useState(0);
   const displayText = useMemo(() => {
@@ -20,7 +20,7 @@ export default function useTypeWriter(typingSpeed: number) {
       });
     }
     return currentWord.substring(0, wordPosition + 1);
-  }, [wordPosition]);
+  }, [wordPosition, currentWord, words.length]);
 
   useEffect(() => {
     const intervalID = setInterval(() => {
@@ -30,7 +30,7 @@ export default function useTypeWriter(typingSpeed: number) {
     return () => {
       clearInterval(intervalID);
     }
-  }, []);
+  }, [typingSpeed]);
 
   return {
     typedText: displayText
