@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Code, Palette, Database, Settings, Computer } from "lucide-react";
+import { Code, Database, Settings, Computer } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
