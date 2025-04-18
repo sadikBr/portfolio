@@ -41,11 +41,11 @@ export function Hero() {
       </div>
 
       <div className='flex items-center gap-6'>
-        <Link href='https://github.com' target='_blank' rel='noopener noreferrer' className='text-muted-foreground hover:text-primary transition-colors'>
+        <Link href='https://github.com/sadikBr' target='_blank' rel='noopener noreferrer' className='text-muted-foreground hover:text-primary transition-colors'>
           <Github className='h-6 w-6' />
           <span className='sr-only'>GitHub</span>
         </Link>
-        <Link href='https://linkedin.com' target='_blank' rel='noopener noreferrer' className='text-muted-foreground hover:text-primary transition-colors'>
+        <Link href='https://linkedin.com/in/brahim_sadik' target='_blank' rel='noopener noreferrer' className='text-muted-foreground hover:text-primary transition-colors'>
           <Linkedin className='h-6 w-6' />
           <span className='sr-only'>LinkedIn</span>
         </Link>

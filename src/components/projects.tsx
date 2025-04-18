@@ -10,7 +10,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-import ProjectImage from '@/assets/project.jpg';
+import LandingPageImage from "@/assets/landing-page-project.png";
+import PortfolioImage from "@/assets/portfolio-project.png";
+import ResumeBuilderImage from "@/assets/resume-builder-project.png";
 
 export function Projects() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -18,80 +20,43 @@ export function Projects() {
   const categories = [
     { id: "all", label: "All Projects" },
     { id: "web", label: "Web Development" },
-    { id: "mobile", label: "Mobile Apps" },
-    { id: "design", label: "UI/UX Design" },
   ];
 
   const projects = [
     {
       id: 1,
-      title: "E-commerce Platform",
+      title: "Landing Page",
       description:
-        "A full-featured online store with product listings, cart functionality, and secure checkout process.",
-      image: ProjectImage,
+        "A landing page for my Website",
+      image: LandingPageImage,
       category: "web",
-      tags: ["Next.js", "Tailwind CSS", "Stripe", "Prisma"],
-      demoUrl: "https://example.com/demo",
-      repoUrl: "https://github.com/username/project",
+      tags: ["Three.js", "HTML5", "CSS3", "TypeScript"],
+      demoUrl: "https://www.brahimsadik.com",
+      repoUrl: "https://github.com/sadikBr/landing-page",
       featured: true,
     },
     {
       id: 2,
-      title: "Task Management App",
+      title: "Portfolio Website",
       description:
-        "A productivity application for managing tasks, projects, and team collaboration with real-time updates.",
-      image: ProjectImage,
+        "My Portfolio Website where you can find all the information about me and you can contact me through it.",
+      image: PortfolioImage,
       category: "web",
-      tags: ["React", "Firebase", "Tailwind CSS", "TypeScript"],
-      demoUrl: "https://example.com/demo",
-      repoUrl: "https://github.com/username/project",
+      tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+      demoUrl: "https://portfolio.brahimsadik.com",
+      repoUrl: "https://github.com/sadikBr/portfolio",
       featured: true,
     },
     {
       id: 3,
-      title: "Fitness Tracker Mobile App",
+      title: "Professional Resume Builder Application",
       description:
-        "A mobile application for tracking workouts, nutrition, and health metrics with personalized recommendations.",
-      image: ProjectImage,
-      category: "mobile",
-      tags: ["React Native", "Redux", "Firebase", "Health API"],
-      demoUrl: "https://example.com/demo",
-      repoUrl: "https://github.com/username/project",
-      featured: false,
-    },
-    {
-      id: 4,
-      title: "Financial Dashboard",
-      description: "An interactive dashboard for visualizing financial data with customizable charts and reports.",
-      image: ProjectImage,
+        "An application where you can Create a professional resume in minutes. Fill in your details, see a real-time preview, and export to PDF.",
+      image: ResumeBuilderImage,
       category: "web",
-      tags: ["React", "D3.js", "Node.js", "MongoDB"],
-      demoUrl: "https://example.com/demo",
-      repoUrl: "https://github.com/username/project",
-      featured: true,
-    },
-    {
-      id: 5,
-      title: "Travel Companion App",
-      description:
-        "A travel planning application with itinerary management, location discovery, and travel recommendations.",
-      image: ProjectImage,
-      category: "mobile",
-      tags: ["Flutter", "Google Maps API", "Firebase"],
-      demoUrl: "https://example.com/demo",
-      repoUrl: "https://github.com/username/project",
-      featured: false,
-    },
-    {
-      id: 6,
-      title: "E-learning Platform UI Design",
-      description:
-        "A comprehensive UI/UX design for an online learning platform with a focus on accessibility and user engagement.",
-      image: ProjectImage,
-      category: "design",
-      tags: ["Figma", "Adobe XD", "UI/UX", "Prototyping"],
-      demoUrl: "https://example.com/demo",
-      repoUrl: "https://github.com/username/project",
+      tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+      demoUrl: "https://resume-builder.brahimsadik.com",
+      repoUrl: "https://github.com/sadikBr/resume-builder",
       featured: false,
     },
   ];
@@ -102,7 +67,7 @@ export function Projects() {
         <div className="text-center mb-12 space-y-4">
           <h2 className="text-3xl font-bold tracking-tight">Featured Projects</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Explore a selection of my recent work across web development, mobile applications, and UI/UX design.
+            Explore a selection of my recent work across web development and other categories.
           </p>
         </div>
 
@@ -129,17 +94,17 @@ export function Projects() {
                   .map((project, index) => (
                     <Card
                       key={project.id}
-                      className="overflow-hidden group border border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 py-0"
+                      className="overflow-hidden group max-h-[420px] border border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 py-0"
                       onMouseEnter={() => setHoveredIndex(index)}
                       onMouseLeave={() => setHoveredIndex(null)}
                     >
-                      <div className="relative aspect-video overflow-hidden">
+                      <div className="relative h-80 overflow-hidden">
                         <Image
                           src={project.image || "/placeholder.svg"}
                           alt={project.title}
-                          width={800}
-                          height={600}
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          width={2000}
+                          height={1300}
+                          className="object-cotain h-full transition-transform duration-500 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-start p-4">
                           <div className="flex gap-2">
@@ -169,10 +134,10 @@ export function Projects() {
                           <Badge className="absolute top-3 right-3 bg-primary text-primary-foreground">Featured</Badge>
                         )}
                       </div>
-                      <CardContent className="p-6">
-                        <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
+                      <CardContent className="px-6 flex flex-col h-full">
+                        <h3 className="text-lg font-semibold mb-2">{project.title}</h3>
                         <p className="text-muted-foreground mb-4 line-clamp-2">{project.description}</p>
-                        <div className="flex flex-wrap gap-2 mt-4">
+                        <div className="flex flex-wrap gap-2 mt-auto">
                           {project.tags.map((tag, idx) => (
                             <Badge key={idx} variant="secondary" className="font-normal">
                               {tag}
@@ -180,7 +145,7 @@ export function Projects() {
                           ))}
                         </div>
                       </CardContent>
-                      <CardFooter className="mt-auto px-6 pb-6 pt-0">
+                      <CardFooter className="mt-auto px-6 pb-4 pt-0">
                         <Button
                           variant="ghost"
                           className="px-2 py-1 h-auto font-semibold text-primary hover:text-primary/80 hover:bg-transparent group"
@@ -206,7 +171,7 @@ export function Projects() {
 
         <div className="flex justify-center mt-12">
           <Button size="lg" variant="outline" asChild>
-            <Link href="https://github.com" className="flex items-center gap-2">
+            <Link href="https://github.com/sadikBr" className="flex items-center gap-2">
               View All Projects <Github className="size-4" />
             </Link>
           </Button>

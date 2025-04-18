@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 
 import ProfileImage from '@/assets/profile.png';
+import Link from "next/link";
 
 export function About() {
   return <section id="about" className='py-20 bg-muted/50'>
@@ -39,8 +40,10 @@ export function About() {
           </p>
 
           <div className='pt-4'>
-            <Button className='gap-2'>
-              <Download className='h-4 w-4' /> Download Resume
+            <Button className='gap-2' asChild>
+              <Link href="https://resume-builder.brahimsadik.com">
+                <Download className='h-4 w-4' /> Download Resume
+              </Link>
             </Button>
           </div>
         </div>

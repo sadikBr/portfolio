@@ -48,7 +48,7 @@ export function Header() {
           ))
         }
         <Button asChild>
-          <Link href='/resume'>Resume</Link>
+          <Link href='https://resume-builder.brahimsadik.com'>Resume</Link>
         </Button>
         <ThemeToggler />
       </nav>
@@ -72,7 +72,7 @@ export function Header() {
                 ))
               }
               <Button className='w-full' asChild>
-                <Link href='/resume'>Resume</Link>
+                <Link href='https://resume-builder.brahimsadik.com'>Resume</Link>
               </Button>
             </div>
           </nav>
