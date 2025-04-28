@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function Skills() {
-  const [activeTab, setActiveTab] = useState("frontend");
+  const [activeTab, setActiveTab] = useState("programming-language");
 
   const skillCategories = [
     {
@@ -76,7 +76,7 @@ export function Skills() {
         </div>
 
         <Tabs defaultValue="frontend" className="w-full max-w-4xl mx-auto" onValueChange={setActiveTab}>
-          <TabsList className="w-full h-auto grid grid-cols-2 md:grid-cols-4 mb-8">
+          <TabsList className="w-full h-auto grid lg:grid-cols-4 grid-cols-2 mb-8">
             {skillCategories.map((category) => (
               <TabsTrigger
                 key={category.id}

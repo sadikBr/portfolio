@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Button } from './ui/button';
 import { ThemeToggler } from './theme-toggler';
 import { Menu, X } from 'lucide-react';
+import { SignedIn, UserButton } from '@clerk/nextjs';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -41,7 +42,7 @@ export function Header() {
       </Link>
 
       {/* Desktop Navigation */}
-      <nav className='hidden md:flex items-center space-x-8'>
+      <nav className='hidden lg:flex items-center space-x-8'>
         {
           navItems.map((item) => (
             <Link key={item.name} href={item.href} className='text-sm font-medium transition-colors hover:text-primary'>{item.name}</Link>
@@ -51,20 +52,28 @@ export function Header() {
           <Link href='https://resume-builder.brahimsadik.com'>Resume</Link>
         </Button>
         <ThemeToggler />
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </nav>
 
       {/* Mobile Menu Button */}
-      <Button variant='ghost' size='icon' className='md:hidden' onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-        {
-          mobileMenuOpen ? <X className='h-6 w-6' /> : <Menu className='h-6 w-6' />
-        }
-        <span className='sr-only'>Toggle Menu</span>
-      </Button>
+      <div className='lg:hidden flex items-center gap-6'>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+        <Button variant='ghost' size='icon' onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          {
+            mobileMenuOpen ? <X className='h-6 w-6' /> : <Menu className='h-6 w-6' />
+          }
+          <span className='sr-only'>Toggle Menu</span>
+        </Button>
+      </div>
 
       {/* Mobile Navigation */}
       {
         mobileMenuOpen && (
-          <nav className='md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-md p-4 border-b shadow-lg'>
+          <nav className='lg:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-md p-4 border-b shadow-lg'>
             <div className='flex flex-col space-y-4'>
               {
                 navItems.map((item) => (
