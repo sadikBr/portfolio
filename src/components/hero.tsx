@@ -4,9 +4,18 @@ import useTypeWriter from '@/hooks/useTypeWriter';
 import { Button } from './ui/button';
 import Link from 'next/link';
 import { ArrowRight, Github, Linkedin } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { getHeroSectionTagLine } from '@/actions';
 
 export function Hero() {
   const { typedText } = useTypeWriter(80);
+  const [tagline, setTagline] = useState("");
+
+  useEffect(() => {
+    getHeroSectionTagLine().then(value => {
+      setTagline(value);
+    })
+  }, []);
 
   return <section className='relative pt-32 pb-20 md:pt-40 md:pb-32'>
     <div className='container flex flex-col items-center text-center'>
@@ -23,9 +32,7 @@ export function Hero() {
         </h2>
       </div>
 
-      <p className='max-w-[600px] text-muted-foreground text-lg mb-8'>
-        Crafting digital experiences with clean code and design. Passionate about building modern web applications that make an impact.
-      </p>
+      <p className='max-w-[600px] text-muted-foreground text-lg mb-8'>{tagline}</p>
 
       <div className='flex flex-col sm:flex-row gap-4 mb-12'>
         <Button size='lg' asChild>
