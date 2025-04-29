@@ -8,7 +8,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Send, CheckCircle2 } from "lucide-react";
 import { getContactInfo } from "@/actions";
 
-import * as LucideIcons from "lucide-react";
 import { DynamicIcon, IconName } from "lucide-react/dynamic";
 
 type ContactInfo = {
