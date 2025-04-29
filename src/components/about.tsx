@@ -9,8 +9,6 @@ import Link from "next/link";
 import { getAboutMeDescription } from "@/actions";
 import { useEffect, useState } from "react";
 
-import { v4 as uuidV4 } from "uuid";
-
 export function About() {
   const [description, setDescription] = useState("");
 
@@ -45,44 +43,16 @@ export function About() {
             </div>
 
             {
-              description && description.split("|||").map((item: string) => (
-                <div id={uuidV4()} className="text-muted-foreground">
+              description ? description.split("|||").map((item: string) => (
+                <div key={item} className="text-muted-foreground">
                   {
                     item.split("||").map(paragraph => (
-                      <p key={uuidV4()}>{paragraph}</p>
+                      <p key={paragraph}>{paragraph}</p>
                     ))
                   }
                 </div>
-              ))
+              )) : <div>Loading ...</div>
             }
-
-            {/* <p className="text-muted-foreground"> */}
-            {/*   Hello! I am Brahim SADIK, a passionate web developer with about 5 */}
-            {/*   years of experience in creating beautiful, functional websites and */}
-            {/*   applications. <br /> */}
-            {/*   I specialize in both front-end and back-end developement with */}
-            {/*   expertise in React, Next.js, Node.js, Deno, and modern CSS */}
-            {/*   frameworks. */}
-            {/* </p> */}
-            {/**/}
-            {/* <p className="text-muted-foreground"> */}
-            {/*   My journey in web development began during my third year in the */}
-            {/*   National School of Applied Sciences, where I discovered my passion */}
-            {/*   for creating digital experiences. <br /> */}
-            {/*   Since then, I have been working with different technologies and */}
-            {/*   growing my skills by building different projects. */}
-            {/* </p> */}
-            {/**/}
-            {/* <p className="text-muted-foreground"> */}
-            {/*   When I am not coding nor working, you can find me watching some */}
-            {/*   youtube entertainment videos (coding, game develepment, anime */}
-            {/*   ...), reading some book, or experimenting with new technologies. */}
-            {/*   {" "} */}
-            {/*   <br /> */}
-            {/*   I believe in continuous learning and stying updated with the */}
-            {/*   latest trends in web development and also in all other aspects of */}
-            {/*   life. */}
-            {/* </p> */}
 
             <div className="pt-4">
               <Button className="gap-2" asChild>
