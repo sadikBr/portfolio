@@ -1,17 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Code, Database, Settings, Computer } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { getSkills } from "@/actions";
 
 export function Skills() {
-  const [activeTab, setActiveTab] = useState("programming-language");
+  const [activeTab, setActiveTab] = useState("programming-languages");
+  const [skills, setSkills] = useState([]);
+
+  useEffect(() => {
+    getSkills().then(console.log)
+  }, []);
 
   const skillCategories = [
     {
-      id: "programming-language",
+      id: "programming-languages",
       name: "Programming Languages",
       icon: <Computer className="h-5 w-5" />,
       skills: [
@@ -75,7 +81,7 @@ export function Skills() {
           </p>
         </div>
 
-        <Tabs defaultValue="frontend" className="w-full max-w-4xl mx-auto" onValueChange={setActiveTab}>
+        <Tabs defaultValue="frontend" className="w-full max-w-4xl mx-auto" value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="w-full h-auto grid lg:grid-cols-4 grid-cols-2 mb-8">
             {skillCategories.map((category) => (
               <TabsTrigger

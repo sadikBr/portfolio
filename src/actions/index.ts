@@ -19,7 +19,15 @@ export async function getAboutMeDescription() {
   return value[0].description;
 }
 
-export async function getSkills() {}
+export async function getSkills() {
+  const skills = await db.query.skillCategoryTable.findMany({
+    with: {
+      skill: true,
+    },
+  });
+
+  return skills;
+}
 
 export async function getExperiences() {}
 

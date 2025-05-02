@@ -29,12 +29,19 @@ export const skillTable = pgTable("skill", {
   ),
 });
 
-export const skillCalegoryRelations = relations(
+export const skillCategoryRelations = relations(
   skillCategoryTable,
   ({ many }) => ({
-    skillTable: many(skillTable),
+    skill: many(skillTable),
   }),
 );
+
+export const skillRelations = relations(skillTable, ({ one }) => ({
+  skillCategory: one(skillCategoryTable, {
+    fields: [skillTable.skillCategoryID],
+    references: [skillCategoryTable.id],
+  }),
+}));
 
 export const experienceCategoryTable = pgTable("experience_category", {
   id: uuid("id").primaryKey().defaultRandom(),
