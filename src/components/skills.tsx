@@ -1,18 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Code, Database, Settings, Computer } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { getSkills } from "@/actions";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { getSkillsSection } from "@/actions";
+import { useEffect, useState } from "react";
 
-export function Skills() {
+export default function Skills() {
   const [activeTab, setActiveTab] = useState("programming-languages");
-  const [skills, setSkills] = useState([]);
 
   useEffect(() => {
-    getSkills().then(console.log)
+    getSkillsSection().then(console.log);
   }, []);
 
   const skillCategories = [
@@ -76,12 +81,18 @@ export function Skills() {
         <div className="text-center mb-12 space-y-4">
           <h2 className="text-3xl font-bold tracking-tight">My Skills</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            I have acquired a diverse set of skills throughout my journey as a developer. Here is a comprehensive overview
-            of my technical expertise.
+            I have acquired a diverse set of skills throughout my journey as a
+            developer. Here is a comprehensive overview of my technical
+            expertise.
           </p>
         </div>
 
-        <Tabs defaultValue="frontend" className="w-full max-w-4xl mx-auto" value={activeTab} onValueChange={setActiveTab}>
+        <Tabs
+          defaultValue="frontend"
+          className="w-full max-w-4xl mx-auto"
+          value={activeTab}
+          onValueChange={setActiveTab}
+        >
           <TabsList className="w-full h-auto grid lg:grid-cols-4 grid-cols-2 mb-8">
             {skillCategories.map((category) => (
               <TabsTrigger
@@ -96,7 +107,11 @@ export function Skills() {
           </TabsList>
 
           {skillCategories.map((category) => (
-            <TabsContent key={category.id} value={category.id} className="space-y-8">
+            <TabsContent
+              key={category.id}
+              value={category.id}
+              className="space-y-8"
+            >
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -104,7 +119,8 @@ export function Skills() {
                     {category.name} Skills
                   </CardTitle>
                   <CardDescription>
-                    My expertise and experience in {category.name.toLowerCase()} development
+                    My expertise and experience in {category.name.toLowerCase()}{" "}
+                    development
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -113,15 +129,23 @@ export function Skills() {
                       <div key={skill.name} className="space-y-2">
                         <div className="flex justify-between">
                           <span className="font-medium">{skill.name}</span>
-                          <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                          <span className="text-sm text-muted-foreground">
+                            {skill.level}%
+                          </span>
                         </div>
                         <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
                           <div
                             className={cn(
                               "h-full bg-primary transition-all duration-1000 ease-out rounded-full",
-                              activeTab === category.id ? "w-[var(--skill-level)]" : "w-0",
+                              activeTab === category.id
+                                ? "w-[var(--skill-level)]"
+                                : "w-0",
                             )}
-                            style={{ "--skill-level": `${skill.level}%` } as React.CSSProperties}
+                            style={
+                              {
+                                "--skill-level": `${skill.level}%`,
+                              } as React.CSSProperties
+                            }
                           ></div>
                         </div>
                       </div>

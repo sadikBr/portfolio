@@ -6,14 +6,16 @@ import { Button } from "./ui/button";
 
 import ProfileImage from "@/assets/profile.png";
 import Link from "next/link";
-import { getAboutMeDescription } from "@/actions";
+import { getAboutMeSection } from "@/actions";
 import { useEffect, useState } from "react";
 
 export function About() {
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    getAboutMeDescription().then(value => setDescription(value));
+    getAboutMeSection().then((value: { aboutMe: string } | undefined) =>
+      setDescription(value?.aboutMe || ""),
+    );
   }, []);
 
   return (
@@ -31,8 +33,7 @@ export function About() {
                   className="object-cover"
                 />
               </div>
-              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/20 to-transparent opacity-70">
-              </div>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/20 to-transparent opacity-70"></div>
             </div>
           </div>
 
@@ -42,17 +43,17 @@ export function About() {
               <div className="w-20 h-1 bg-primary rounded"></div>
             </div>
 
-            {
-              description ? description.split("|||").map((item: string) => (
+            {description ? (
+              description.split("|||").map((item: string) => (
                 <div key={item} className="text-muted-foreground">
-                  {
-                    item.split("||").map(paragraph => (
-                      <p key={paragraph}>{paragraph}</p>
-                    ))
-                  }
+                  {item.split("||").map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
                 </div>
-              )) : <div>Loading ...</div>
-            }
+              ))
+            ) : (
+              <div>Loading ...</div>
+            )}
 
             <div className="pt-4">
               <Button className="gap-2" asChild>

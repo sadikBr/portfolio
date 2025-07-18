@@ -1,6 +1,5 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default function AdminPage() {
-  return <div className="container">Admin Dashboard <Button asChild><Link href="/">Go Home</Link></Button></div>
+  redirect("/admin-dashboard/hero");
 }

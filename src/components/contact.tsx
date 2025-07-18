@@ -4,9 +4,15 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Send, CheckCircle2 } from "lucide-react";
-import { getContactInfo } from "@/actions";
+import { getContactInfoSection } from "@/actions";
 
 import { DynamicIcon, IconName } from "lucide-react/dynamic";
 
@@ -16,9 +22,9 @@ type ContactInfo = {
   title: string;
   value: string;
   link: string;
-}
+};
 
-export function Contact() {
+export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [contactInfo, setContactInfo] = useState<ContactInfo[]>([]);
@@ -39,17 +45,19 @@ export function Contact() {
         form.reset();
       }, 5000);
     }, 1500);
-  }
+  };
 
   useEffect(() => {
-    getContactInfo().then(value => {
-      setContactInfo(value.map(item => {
-        return {
-          ...item,
-          iconName: item.iconName as IconName
-        }
-      }));
-    })
+    getContactInfoSection().then((value) => {
+      setContactInfo(
+        value.map((item) => {
+          return {
+            ...item,
+            iconName: item.icon as IconName,
+          };
+        }),
+      );
+    });
   }, []);
 
   return (
@@ -58,8 +66,8 @@ export function Contact() {
         <div className="text-center mb-12 space-y-4">
           <h2 className="text-3xl font-bold tracking-tight">Get In Touch</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Have a project in mind or want to discuss potential opportunities? Feel free to reach out to me using the
-            form below.
+            Have a project in mind or want to discuss potential opportunities?
+            Feel free to reach out to me using the form below.
           </p>
         </div>
 
@@ -67,8 +75,9 @@ export function Contact() {
           <div className="space-y-6">
             <h3 className="text-xl font-semibold">Contact Information</h3>
             <p className="text-muted-foreground">
-              Feel free to reach out to me through any of these channels. I am always open to discussing new projects,
-              creative ideas, or opportunities.
+              Feel free to reach out to me through any of these channels. I am
+              always open to discussing new projects, creative ideas, or
+              opportunities.
             </p>
 
             <div className="space-y-4 mt-8">
@@ -77,7 +86,11 @@ export function Contact() {
                   key={info.id}
                   href={info.link}
                   target={info.title === "Location" ? "_blank" : undefined}
-                  rel={info.title === "Location" ? "noopener noreferrer" : undefined}
+                  rel={
+                    info.title === "Location"
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
                   className="flex items-start gap-4 p-4 rounded-lg border bg-card hover:bg-accent transition-colors"
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
@@ -85,7 +98,9 @@ export function Contact() {
                   </div>
                   <div>
                     <h4 className="font-medium">{info.title}</h4>
-                    <p className="text-sm text-muted-foreground mt-1">{info.value}</p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {info.value}
+                    </p>
                   </div>
                 </a>
               ))}
@@ -95,7 +110,10 @@ export function Contact() {
           <Card>
             <CardHeader>
               <CardTitle>Send Me a Message</CardTitle>
-              <CardDescription>Fill out the form below and I will get back to you as soon as possible.</CardDescription>
+              <CardDescription>
+                Fill out the form below and I will get back to you as soon as
+                possible.
+              </CardDescription>
             </CardHeader>
             <CardContent>
               {isSubmitted ? (
@@ -104,7 +122,10 @@ export function Contact() {
                     <CheckCircle2 className="h-6 w-6" />
                   </div>
                   <h3 className="text-xl font-medium">Message Sent!</h3>
-                  <p className="text-muted-foreground">Thank you for trying to reach out. This form is not functional at the moment.</p>
+                  <p className="text-muted-foreground">
+                    Thank you for trying to reach out. This form is not
+                    functional at the moment.
+                  </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -119,7 +140,12 @@ export function Contact() {
                       <label htmlFor="email" className="text-sm font-medium">
                         Email
                       </label>
-                      <Input id="email" type="email" placeholder="Your email" required />
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="Your email"
+                        required
+                      />
                     </div>
                   </div>
 
@@ -127,7 +153,11 @@ export function Contact() {
                     <label htmlFor="subject" className="text-sm font-medium">
                       Subject
                     </label>
-                    <Input id="subject" placeholder="Subject of your message" required />
+                    <Input
+                      id="subject"
+                      placeholder="Subject of your message"
+                      required
+                    />
                   </div>
 
                   <div className="space-y-2">
@@ -135,10 +165,19 @@ export function Contact() {
                       Message
                     </label>
 
-                    <Textarea id="message" placeholder="Your message" rows={5} required />
+                    <Textarea
+                      id="message"
+                      placeholder="Your message"
+                      rows={5}
+                      required
+                    />
                   </div>
 
-                  <Button type="submit" className="w-full gap-2" disabled={isSubmitting}>
+                  <Button
+                    type="submit"
+                    className="w-full gap-2"
+                    disabled={isSubmitting}
+                  >
                     {isSubmitting ? (
                       <>
                         <div className="h-4 w-4 border-2 border-current border-r-transparent animate-spin rounded-full"></div>
