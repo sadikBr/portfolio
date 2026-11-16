@@ -1,131 +1,196 @@
-"use client";
-
-import { useState } from "react";
-import { Code, Database, Settings, Computer } from "lucide-react";
+import type { CSSProperties } from "react";
+import {
+  siHtml5,
+  siCss,
+  siReact,
+  siVuedotjs,
+  siTailwindcss,
+  siJavascript,
+  siTypescript,
+  siNextdotjs,
+  siNodedotjs,
+  siDeno,
+  siExpress,
+  siMongodb,
+  siMysql,
+  siPostgresql,
+  siPython,
+  siOpenjdk,
+  siC,
+  siCplusplus,
+  siLinux,
+  siGit,
+  siGithub,
+  siNeovim,
+  type SimpleIcon,
+} from "simple-icons";
+import { Code, Server, Braces, Wrench, Database, Monitor, Code2, Webhook, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { SectionHeading } from "./section-heading";
+import { Reveal } from "./reveal";
+
+type Skill = { name: string; icon: SimpleIcon | LucideIcon };
+
+const categories: {
+  title: string;
+  blurb: string;
+  Icon: LucideIcon;
+  className: string;
+  skills: Skill[];
+}[] = [
+  {
+    title: "Frontend",
+    blurb: "Responsive, accessible interfaces built with modern frameworks.",
+    Icon: Code,
+    className: "md:col-span-4",
+    skills: [
+      { name: "React", icon: siReact },
+      { name: "Next.js", icon: siNextdotjs },
+      { name: "Vue.js", icon: siVuedotjs },
+      { name: "TypeScript", icon: siTypescript },
+      { name: "JavaScript", icon: siJavascript },
+      { name: "Tailwind CSS", icon: siTailwindcss },
+      { name: "HTML5", icon: siHtml5 },
+      { name: "CSS3", icon: siCss },
+    ],
+  },
+  {
+    title: "Languages",
+    blurb: "General-purpose languages beyond the browser.",
+    Icon: Braces,
+    className: "md:col-span-2",
+    skills: [
+      { name: "Python", icon: siPython },
+      { name: "Java SE", icon: siOpenjdk },
+      { name: "C", icon: siC },
+      { name: "C++", icon: siCplusplus },
+    ],
+  },
+  {
+    title: "Backend & Data",
+    blurb: "APIs, services and the databases behind them.",
+    Icon: Server,
+    className: "md:col-span-3",
+    skills: [
+      { name: "Node.js", icon: siNodedotjs },
+      { name: "Express", icon: siExpress },
+      { name: "Deno", icon: siDeno },
+      { name: "REST APIs", icon: Webhook },
+      { name: "MongoDB", icon: siMongodb },
+      { name: "PostgreSQL", icon: siPostgresql },
+      { name: "MySQL", icon: siMysql },
+      { name: "Oracle", icon: Database },
+    ],
+  },
+  {
+    title: "Tools & Environment",
+    blurb: "The setup I build in every day.",
+    Icon: Wrench,
+    className: "md:col-span-3",
+    skills: [
+      { name: "Git", icon: siGit },
+      { name: "GitHub", icon: siGithub },
+      { name: "Neovim", icon: siNeovim },
+      { name: "VS Code", icon: Code2 },
+      { name: "Linux", icon: siLinux },
+      { name: "Windows", icon: Monitor },
+    ],
+  },
+];
+
+const allSkills = categories.flatMap((c) => c.skills);
+
+function isSimpleIcon(icon: Skill["icon"]): icon is SimpleIcon {
+  return typeof icon === "object" && "path" in icon;
+}
+
+/** Brand colour for hover, skipped when it's too dark to read on a dark background. */
+function brandColor(icon: Skill["icon"]) {
+  if (!isSimpleIcon(icon)) return undefined;
+  const n = parseInt(icon.hex, 16);
+  const [r, g, b] = [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luminance > 0.25 ? `#${icon.hex}` : undefined;
+}
+
+function SkillLogo({ icon, className }: { icon: Skill["icon"]; className?: string }) {
+  if (isSimpleIcon(icon)) {
+    return (
+      <svg role="img" viewBox="0 0 24 24" aria-hidden className={cn("fill-current", className)}>
+        <path d={icon.path} />
+      </svg>
+    );
+  }
+  const Icon = icon;
+  return <Icon aria-hidden className={className} />;
+}
 
 export function Skills() {
-  const [activeTab, setActiveTab] = useState("frontend");
-
-  const skillCategories = [
-    {
-      id: "programming-language",
-      name: "Programming Languages",
-      icon: <Computer className="h-5 w-5" />,
-      skills: [
-        { name: "C", level: 70 },
-        { name: "C++", level: 60 },
-        { name: "Python", level: 90 },
-        { name: "Java SE", level: 80 },
-      ],
-    },
-    {
-      id: "frontend",
-      name: "Frontend",
-      icon: <Code className="h-5 w-5" />,
-      skills: [
-        { name: "HTML5/CSS3", level: 95 },
-        { name: "Tailwind CSS", level: 90 },
-        { name: "JavaScript (ES6+)", level: 90 },
-        { name: "TypeScript", level: 85 },
-        { name: "React.js", level: 95 },
-        { name: "Vue.js", level: 95 },
-        { name: "Next.js", level: 85 },
-      ],
-    },
-    {
-      id: "backend",
-      name: "Backend",
-      icon: <Database className="h-5 w-5" />,
-      skills: [
-        { name: "Node.js", level: 80 },
-        { name: "Deno", level: 75 },
-        { name: "Express.js", level: 90 },
-        { name: "MongoDB", level: 80 },
-        { name: "Oracle", level: 80 },
-        { name: "MySQL", level: 80 },
-        { name: "PostgreSQL", level: 75 },
-        { name: "RESTful APIs", level: 95 },
-      ],
-    },
-    {
-      id: "tools",
-      name: "Operating Systems & Tools",
-      icon: <Settings className="h-5 w-5" />,
-      skills: [
-        { name: "Windows", level: 80 },
-        { name: "Linux", level: 85 },
-        { name: "Git/GitHub", level: 90 },
-        { name: "VS Code", level: 95 },
-        { name: "Neovim", level: 90 },
-      ],
-    },
-  ];
-
   return (
-    <section id="skills" className="py-20">
+    <section id="skills" aria-labelledby="skills-title" className="relative overflow-hidden py-24 md:py-32 bg-muted/40">
       <div className="container">
-        <div className="text-center mb-12 space-y-4">
-          <h2 className="text-3xl font-bold tracking-tight">My Skills</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            I have acquired a diverse set of skills throughout my journey as a developer. Here is a comprehensive overview
-            of my technical expertise.
-          </p>
-        </div>
+        <SectionHeading
+          id="skills-title"
+          eyebrow="Skills"
+          title="My technical toolbox"
+          description="The languages, frameworks and tools I reach for to take an idea from design to deployment."
+        />
+      </div>
 
-        <Tabs defaultValue="frontend" className="w-full max-w-4xl mx-auto" onValueChange={setActiveTab}>
-          <TabsList className="w-full h-auto grid grid-cols-2 md:grid-cols-4 mb-8">
-            {skillCategories.map((category) => (
-              <TabsTrigger
-                key={category.id}
-                value={category.id}
-                className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+      {/* Decorative logo marquee — the grid below carries the real content */}
+      <div aria-hidden className="group relative mb-14 flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
+        {[0, 1].map((copy) => (
+          <ul key={copy} className="flex shrink-0 animate-marquee items-center gap-10 pr-10 group-hover:[animation-play-state:paused]">
+            {allSkills.map((skill) => (
+              <li
+                key={skill.name}
+                className="flex items-center gap-2.5 text-muted-foreground/70 transition-colors hover:text-[var(--brand,var(--foreground))]"
+                style={{ "--brand": brandColor(skill.icon) } as CSSProperties}
               >
-                {category.icon}
-                <span className="hidden sm:inline">{category.name}</span>
-              </TabsTrigger>
+                <SkillLogo icon={skill.icon} className="size-7" />
+                <span className="whitespace-nowrap text-lg font-semibold tracking-tight">{skill.name}</span>
+              </li>
             ))}
-          </TabsList>
+          </ul>
+        ))}
+      </div>
 
-          {skillCategories.map((category) => (
-            <TabsContent key={category.id} value={category.id} className="space-y-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    {category.icon}
-                    {category.name} Skills
-                  </CardTitle>
-                  <CardDescription>
-                    My expertise and experience in {category.name.toLowerCase()} development
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid gap-6">
-                    {category.skills.map((skill) => (
-                      <div key={skill.name} className="space-y-2">
-                        <div className="flex justify-between">
-                          <span className="font-medium">{skill.name}</span>
-                          <span className="text-sm text-muted-foreground">{skill.level}%</span>
-                        </div>
-                        <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
-                          <div
-                            className={cn(
-                              "h-full bg-primary transition-all duration-1000 ease-out rounded-full",
-                              activeTab === category.id ? "w-[var(--skill-level)]" : "w-0",
-                            )}
-                            style={{ "--skill-level": `${skill.level}%` } as React.CSSProperties}
-                          ></div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
+      <div className="container">
+        <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-6">
+          {categories.map(({ title, blurb, Icon, className, skills }, i) => (
+            <Reveal key={title} delay={i * 80} className={cn("h-full", className)}>
+              <article className="glow-card relative flex h-full flex-col overflow-hidden rounded-3xl border bg-card p-6 sm:p-7">
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -top-16 -right-16 size-40 rounded-full bg-gradient-to-br from-brand-1/20 to-brand-2/10 blur-2xl"
+                />
+                <div className="flex items-center gap-3">
+                  <span className="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-brand-1 to-brand-2 text-white shadow-md shadow-brand-1/20">
+                    <Icon className="size-5" />
+                  </span>
+                  <h3 className="text-lg font-semibold">{title}</h3>
+                </div>
+                <p className="mt-3 text-sm text-muted-foreground">{blurb}</p>
+
+                <ul className="mt-6 flex flex-wrap gap-2">
+                  {skills.map((skill) => (
+                    <li
+                      key={skill.name}
+                      className="group/chip flex items-center gap-2 rounded-full border bg-background/60 py-1.5 pr-3.5 pl-2.5 text-sm font-medium transition-all hover:-translate-y-0.5 hover:border-[var(--brand,var(--primary))]/50 hover:shadow-md"
+                      style={{ "--brand": brandColor(skill.icon) } as CSSProperties}
+                    >
+                      <SkillLogo
+                        icon={skill.icon}
+                        className="size-4 text-muted-foreground transition-colors group-hover/chip:text-[var(--brand,var(--primary))]"
+                      />
+                      {skill.name}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </Reveal>
           ))}
-        </Tabs>
+        </div>
       </div>
     </section>
   );

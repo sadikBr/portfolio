@@ -1,53 +1,93 @@
-import { Download } from "lucide-react";
 import Image from "next/image";
-import { Button } from "./ui/button";
-
-import ProfileImage from '@/assets/profile.png';
 import Link from "next/link";
+import { ExternalLink, Code2, Rocket, BookOpen } from "lucide-react";
+import { Button } from "./ui/button";
+import { Reveal } from "./reveal";
+import { site } from "@/lib/site";
+
+import ProfileImage from "@/assets/profile.png";
+
+const highlights = [
+  { Icon: Code2, title: "Full-stack", text: "React, Next.js, Node.js, Deno" },
+  { Icon: Rocket, title: "Enterprise", text: "Windchill PLM & Java SE" },
+  { Icon: BookOpen, title: "Always learning", text: "New tools, new ideas" },
+];
 
 export function About() {
-  return <section id="about" className='py-20 bg-muted/50'>
-    <div className='container'>
-      <div className='flex flex-col md:flex-row gap-12 items-center'>
-        <div className='md:w-1/2 flex justify-center'>
-          <div className='relative'>
-            <div className='w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-8 border-primary/10 shadow-xl'>
-              <Image src={ProfileImage} alt='Profile picture' width={320} height={320} className='object-cover' />
+  return (
+    <section id="about" aria-labelledby="about-title" className="relative py-24 md:py-32">
+      <div className="container">
+        <div className="grid items-center gap-14 md:grid-cols-[5fr_7fr]">
+          <Reveal className="flex justify-center">
+            <div className="relative">
+              <div
+                aria-hidden
+                className="absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-brand-1 via-brand-2 to-brand-3 opacity-30 blur-2xl"
+              />
+              <div className="relative size-64 rotate-3 overflow-hidden rounded-[2rem] border-4 border-background shadow-2xl transition-transform duration-500 hover:rotate-0 sm:size-80">
+                <Image
+                  src={ProfileImage}
+                  alt={`Portrait of ${site.name}`}
+                  fill
+                  sizes="(min-width: 640px) 320px, 256px"
+                  placeholder="blur"
+                  className="object-cover"
+                  priority
+                />
+              </div>
+              <div className="glass absolute -bottom-5 -left-5 rounded-2xl border px-4 py-3 shadow-lg">
+                <p className="text-xs text-muted-foreground">Currently</p>
+                <p className="text-sm font-semibold">Software Engineer @ PercallGroup</p>
+              </div>
             </div>
-            <div className='absolute inset-0 rounded-full bg-gradient-to-tr from-primary/20 to-transparent opacity-70'></div>
-          </div>
-        </div>
+          </Reveal>
 
-        <div className='md:w-1/2 space-y-6'>
-          <div className='space-y-2'>
-            <h2 className='text-3xl font-bold tracking-tight'>About Me</h2>
-            <div className='w-20 h-1 bg-primary rounded'></div>
-          </div>
+          <div className="space-y-6">
+            <Reveal>
+              <p className="font-mono text-xs font-medium uppercase tracking-[0.25em] text-primary">About me</p>
+              <h2 id="about-title" className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+                Engineer by training, <span className="text-gradient">builder by passion.</span>
+              </h2>
+            </Reveal>
 
-          <p className='text-muted-foreground'>
-            Hello! I am Brahim SADIK, a passionate web developer with about 5 years of experience in creating beautiful, functional websites and applications. <br />
-            I specialize in both front-end and back-end developement with expertise in React, Next.js, Node.js, Deno, and modern CSS frameworks.
-          </p>
+            <Reveal delay={100} className="space-y-4 text-muted-foreground leading-relaxed">
+              <p>
+                Hello! I&apos;m {site.name}, a passionate developer with about 5 years of experience creating beautiful,
+                functional websites and applications. I specialize in both front-end and back-end development, with
+                expertise in React, Next.js, Node.js, Deno, and modern CSS frameworks.
+              </p>
+              <p>
+                My journey in web development began during my third year at the National School of Applied Sciences,
+                where I discovered my passion for creating digital experiences. Since then, I have kept growing my skills
+                by working with different technologies and building projects.
+              </p>
+              <p>
+                When I&apos;m not coding, you can find me watching YouTube (coding, game development, anime…), reading a
+                book, or experimenting with new technologies. I believe in continuous learning and staying up to date
+                — in web development and in every other aspect of life.
+              </p>
+            </Reveal>
 
-          <p className='text-muted-foreground'>
-            My journey in web development began during my third year in the National School of Applied Sciences, where I discovered my passion for creating digital experiences. <br />
-            Since then, I have been working with different technologies and growing my skills by building different projects.
-          </p>
+            <Reveal delay={200} className="grid gap-3 sm:grid-cols-3">
+              {highlights.map(({ Icon, title, text }) => (
+                <div key={title} className="rounded-xl border bg-card p-4 transition-colors hover:border-primary/40">
+                  <Icon className="size-5 text-primary" />
+                  <p className="mt-3 text-sm font-semibold">{title}</p>
+                  <p className="text-xs text-muted-foreground">{text}</p>
+                </div>
+              ))}
+            </Reveal>
 
-          <p className='text-muted-foreground'>
-            When I am not coding nor working, you can find me watching some youtube entertainment videos (coding, game develepment, anime ...), reading some book, or experimenting with new technologies. <br />
-            I believe in continuous learning and stying updated with the latest trends in web development and also in all other aspects of life.
-          </p>
-
-          <div className='pt-4'>
-            <Button className='gap-2' asChild>
-              <Link href="https://resume-builder.brahimsadik.com">
-                <Download className='h-4 w-4' /> Download Resume
-              </Link>
-            </Button>
+            <Reveal delay={300} className="pt-2">
+              <Button className="rounded-full" size="lg" asChild>
+                <Link href={site.resumeUrl} target="_blank" rel="noopener noreferrer">
+                  View my resume <ExternalLink />
+                </Link>
+              </Button>
+            </Reveal>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  );
 }

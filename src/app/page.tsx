@@ -9,9 +9,9 @@ import { Skills } from "@/components/skills";
 
 export default function Home() {
   return (
-    <div>
+    <>
       <Header />
-      <main>
+      <main id="main">
         <Hero />
         <About />
         <Skills />
@@ -20,6 +20,6 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
-    </div>
+    </>
   );
 }

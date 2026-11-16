@@ -1,83 +1,140 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { cn } from '@/lib/utils';
-import Link from 'next/link';
-import { Button } from './ui/button';
-import { ThemeToggler } from './theme-toggler';
-import { Menu, X } from 'lucide-react';
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { Menu, X, FileText } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
+import { ThemeToggler } from "./theme-toggler";
+import { navItems, site } from "@/lib/site";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [active, setActive] = useState<string>("");
 
   useEffect(() => {
-    if (window.scrollY > 0) {
-      setIsScrolled(true);
-    }
-
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    }
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    }
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = [
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
-  ];
+  // Highlight the nav link of the section currently in view
+  useEffect(() => {
+    const sections = navItems
+      .map((item) => document.querySelector<HTMLElement>(item.href))
+      .filter((el): el is HTMLElement => el !== null);
 
-  return <header className={cn('fixed top-0 w-full z-50 transition-all duration-300', isScrolled ? 'bg-background/80 backdrop-blur-md py-3 shadow-md' : 'bg-transparent py-5')}>
-    <div className='container flex items-center justify-between'>
-      <Link href='/' className='text-2xl font-bold tracking-tight'>
-        Brahim<span className='text-destructive'>.Protfolio</span>
-      </Link>
-
-      {/* Desktop Navigation */}
-      <nav className='hidden md:flex items-center space-x-8'>
-        {
-          navItems.map((item) => (
-            <Link key={item.name} href={item.href} className='text-sm font-medium transition-colors hover:text-primary'>{item.name}</Link>
-          ))
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
         }
-        <Button asChild>
-          <Link href='https://resume-builder.brahimsadik.com'>Resume</Link>
-        </Button>
-        <ThemeToggler />
-      </nav>
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
 
-      {/* Mobile Menu Button */}
-      <Button variant='ghost' size='icon' className='md:hidden' onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-        {
-          mobileMenuOpen ? <X className='h-6 w-6' /> : <Menu className='h-6 w-6' />
-        }
-        <span className='sr-only'>Toggle Menu</span>
-      </Button>
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMobileMenuOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [mobileMenuOpen]);
 
-      {/* Mobile Navigation */}
-      {
-        mobileMenuOpen && (
-          <nav className='md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-md p-4 border-b shadow-lg'>
-            <div className='flex flex-col space-y-4'>
-              {
-                navItems.map((item) => (
-                  <Link key={item.name} href={item.href} className='text-sm font-medium py-2 transition-colors hover:text-primary' onClick={() => setMobileMenuOpen(false)}>{item.name}</Link>
-                ))
-              }
-              <Button className='w-full' asChild>
-                <Link href='https://resume-builder.brahimsadik.com'>Resume</Link>
-              </Button>
-            </div>
+  return (
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        isScrolled || mobileMenuOpen ? "py-3" : "py-5",
+      )}
+    >
+      <div className="container">
+        <div
+          className={cn(
+            "relative flex items-center justify-between rounded-2xl px-4 py-2 transition-all duration-300",
+            isScrolled || mobileMenuOpen ? "glass border shadow-lg shadow-black/5" : "border border-transparent",
+          )}
+        >
+          <Link href="/" className="group flex items-center gap-2 text-lg font-bold tracking-tight">
+            <span className="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-brand-1 to-brand-2 font-mono text-sm text-white shadow-md transition-transform group-hover:rotate-6">
+              BS
+            </span>
+            <span>
+              {site.shortName}
+              <span className="text-gradient">.Portfolio</span>
+            </span>
+          </Link>
+
+          <nav aria-label="Primary" className="hidden md:flex items-center gap-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                aria-current={active === item.href ? "true" : undefined}
+                className={cn(
+                  "relative rounded-full px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+                  active === item.href && "bg-accent text-foreground",
+                )}
+              >
+                {item.name}
+              </Link>
+            ))}
           </nav>
-        )
-      }
-    </div>
-  </header>;
+
+          <div className="hidden md:flex items-center gap-2">
+            <ThemeToggler />
+            <Button asChild size="sm" className="rounded-full">
+              <Link href={site.resumeUrl} target="_blank" rel="noopener noreferrer">
+                <FileText /> Resume
+              </Link>
+            </Button>
+          </div>
+
+          <div className="flex items-center gap-1 md:hidden">
+            <ThemeToggler />
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-nav"
+              onClick={() => setMobileMenuOpen((o) => !o)}
+            >
+              {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+              <span className="sr-only">{mobileMenuOpen ? "Close menu" : "Open menu"}</span>
+            </Button>
+          </div>
+
+          {mobileMenuOpen && (
+            <nav
+              id="mobile-nav"
+              aria-label="Mobile"
+              className="glass absolute inset-x-0 top-full mt-2 rounded-2xl border p-3 shadow-xl animate-in fade-in slide-in-from-top-2 md:hidden"
+            >
+              <div className="flex flex-col">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="rounded-lg px-3 py-2.5 text-sm font-medium transition-colors hover:bg-accent"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+                <Button className="mt-2 w-full" asChild>
+                  <Link href={site.resumeUrl} target="_blank" rel="noopener noreferrer">
+                    <FileText /> Resume
+                  </Link>
+                </Button>
+              </div>
+            </nav>
+          )}
+        </div>
+      </div>
+    </header>
+  );
 }
